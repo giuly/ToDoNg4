@@ -1,0 +1,12 @@
+li {
+	list-style: none
+}
+
+li.editing div.view {
+	display: none;
+}
+
+.edit {
+	display: block;
+	width: 200px;
+}

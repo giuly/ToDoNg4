@@ -1,0 +1,17 @@
+<div>
+	<ul class="items">
+	  <li *ngFor="let item of items" [ngClass]="{editing: item.editing}" >
+	    <div class="view">
+	    	<label (dblclick)="item.editing = true" >{{item.title}}</label>
+	    	<button class="delete" (click)="deleteItem(item)">x</button>	
+	    </div>
+	    <input class="edit" 
+	    	*ngIf="item.editing" 
+	    	(keyup.escape)="item.editing = false"
+	    	(keyup.enter)="updateItem(item)"
+	    	(blur)="updateItem(item)"
+	    	[(ngModel)]="item.title" 
+	    />
+	  </li>
+	</ul>
+</div>
