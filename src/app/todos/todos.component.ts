@@ -21,8 +21,13 @@ export class TodosComponent implements OnInit {
   	this.items = this.dataService.removeItem(item.id); 
   }
 
-  updateItem(item: Item): void {
+  updateItem(item: Item, value:string): void {
+    item.title = value;
   	this.items = this.dataService.editItem(item);
+  }
+
+  toggleComplete(item:Item): void {
+    this.items = this.dataService.toggle(item);
   }
 
 }

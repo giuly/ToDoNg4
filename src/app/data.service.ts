@@ -16,6 +16,11 @@ export class DataService {
 
   }
 
+  toggle(item: Item): Item[] {
+    item.complete = !item.complete;
+    return this.items;
+  }
+
   removeItem(id: number): Item[] {
   	this.items = this.items
   		.filter(item => item.id != id);	
@@ -23,15 +28,10 @@ export class DataService {
   }
 
   editItem(item: Item): Item[] {
-
-  	this.items.forEach(function(currentItem) {
-  		if(currentItem.id === item.id) {
-  			//console.log(item.title, currentItem.title);
-  			item.editing = false;
-  		}
-  	}) 
-
-  	return this.items
+  	let index = this.items.findIndex(itemTmp => itemTmp.id === item.id)
+  	this.items[index].title = item.title;
+    this.items[index].editing = false;
+    return this.items;
   }
 
   getTodos(): Item[] {

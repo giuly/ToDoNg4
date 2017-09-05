@@ -1,15 +1,18 @@
 <div>
 	<ul class="items">
-	  <li *ngFor="let item of items" [ngClass]="{editing: item.editing}" >
+	  <li *ngFor="let item of items" [ngClass]="{completed:item.complete, editing: item.editing}" >
 	    <div class="view">
+	    	<input class="toggle" type="checkbox" (click)="toggleComplete(item)" [checked]=item.complete>
 	    	<label (dblclick)="item.editing = true" >{{item.title}}</label>
 	    	<button class="delete" (click)="deleteItem(item)">x</button>	
 	    </div>
 	    <input class="edit" 
+	    	#updatedItem
+	    	[value] = "item.title"
 	    	*ngIf="item.editing" 
 	    	(keyup.escape)="item.editing = false"
-	    	(keyup.enter)="updateItem(item)"
-	    	(blur)="updateItem(item)"
+	    	(keyup.enter)="updateItem(item, updatedItem.value)"
+	    	(blur)="updateItem(item, updatedItem.value)"
 	    	[(ngModel)]="item.title" 
 	    />
 	  </li>
