@@ -13,21 +13,37 @@ export class TodosComponent implements OnInit {
 
   constructor(private dataService: DataService) { }
 
+  private getItems() {
+    this.items = this.dataService.getItems();
+  }
+
   ngOnInit():void {
-  	this.items = this.dataService.getTodos();
+  	this.getItems();
   }
 
   deleteItem(item:Item): void {
-  	this.items = this.dataService.removeItem(item.id); 
+  	this.dataService.removeItem(item.id); 
+    this.getItems();
   }
 
   updateItem(item: Item, value:string): void {
     item.title = value;
-  	this.items = this.dataService.editItem(item);
+  	this.dataService.editItem(item);
+    this.getItems();
   }
 
   toggleComplete(item:Item): void {
-    this.items = this.dataService.toggle(item);
+    this.dataService.toggle(item);
+    this.getItems();
   }
 
+  toggleCompleteAll(complete: boolean) {
+    this.dataService.toggleAll(complete);
+    this.getItems();
+  }
+
+  deleteCompleted(): void {
+    this.dataService.removeCompleted();
+    this.getItems();
+  }
 }

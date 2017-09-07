@@ -1,4 +1,8 @@
 <div>
+	<div class="markAll" *ngIf="items.length > 0">
+		<input class="toggleAll" #toggleAll type="checkbox" [checked]="dataService.allCompleted()" (click)="toggleCompleteAll(toggleAll.checked)">
+		<label>Mark all completed</label>
+	</div>
 	<ul class="items">
 	  <li *ngFor="let item of items" [ngClass]="{completed:item.complete, editing: item.editing}" >
 	    <div class="view">
@@ -17,4 +21,8 @@
 	    />
 	  </li>
 	</ul>
+	<div class="bottomDetails">
+		<span>{{ dataService.getWithCompleted(false) }} items left</span>
+		<button *ngIf="dataService.getWithCompleted(true)" (click)="deleteCompleted()">Clear Completed</button>
+	</div>
 </div>
